@@ -59,7 +59,30 @@ float main (){
 }
 
 //3 
+int mdc1 (int a, int b){ // vai fazer o resto aé que o mesmo seja 0 aí o ultimo numero vai ser o mdc 
+    int resto ; 
+    do {
+        resto = a %b;
 
-int mdc1 (int a, int b){
-  
+        a = b;
+        b = resto ;
+
+    }while (resto != 0);
+
+    return a;
+}
+
+/*exemplo para calcular o m.d.c 
+m.d.c(54,21) 
+54 = 2 *21 +12 
+21 = 12*1 +9 
+12 = 9*1 +3 
+9 = 3 *3 + 0 
+como o resto é zero o mdc(54,21)=3 */
+
+int main (){
+    int a ,b ;
+    scanf ("%d,%d" ,&a ,&b ) ;
+    int i =mdc1(a,b);
+    printf("%d" , i);   
 }
