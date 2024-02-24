@@ -110,3 +110,84 @@ int main (){
     int i = mdc2(a,b);
     printf("%d" , i);   
 }
+
+//5 
+int mdc3 (int a, int b){
+    for(int i = 0 ; i < 8 ;i++ ){printf("%d %d\n", a, b);
+    if (a == 0){
+        return b;
+    }
+    else if (b == 0){
+        return a;
+    }
+    else if (a >b) {
+        a =a % b;
+    }
+    else if (a < b){
+        b = b % a;
+    }
+    else if (a == b){
+        return a;
+    }
+    else if (a == 0){
+        return b;
+    }
+    else if (b == 0){
+        return a;
+    }
+    }
+
+}
+
+int main (){
+    int a ,b;
+    scanf ("%d %d" ,&a ,&b ) ;
+    int i = mdc3(a,b);
+    printf("%d" , i); 
+}
+
+// 6
+//a
+
+int fib1(int n) {
+    if (n < 2) {
+        return 1;
+    }
+    else if (n >= 2) {
+        return fib1(n-1) + fib1(n-2);
+    }
+}
+
+int main() {
+    int n;
+    printf("Digite um número inteiro: ");
+    scanf("%d", &n);
+    printf("O %d-ésimo número da sequência de Fibonacci é: %d\n", n, fib1(n));
+    return 0;
+} 
+
+//b 
+int fib2(int n) {
+    if (n < 2)
+        return 1;
+
+    int a = 1;  
+    int b = 1;  
+    int resultado = 0;
+
+    for (int i = 2; i <= n; i++) {
+        resultado = a + b;
+        a = b;
+        b = resultado;
+    }
+
+    return resultado;
+}
+
+int main() {
+    int n;
+    printf("Mete um numero : ");
+    scanf("%d", &n);
+    printf("Onúmero da sequência de Fibonacci é: %d\n", fib2(n));
+    return 0;
+}
