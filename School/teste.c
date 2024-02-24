@@ -1,39 +1,26 @@
 #include <stdio.h>
 
-int contaasdivisoes() {
-    int count = 0;
-    int n = 81;
-    for(;n>0 ;n /=2) {
-        count++;
+int fib2(int n) {
+    if (n < 2)
+        return 1;
+
+    int a = 1;  
+    int b = 1;  
+    int resultado = 0;
+
+    for (int i = 2; i <= n; i++) {
+        resultado = a + b;
+        a = b;
+        b = resultado;
     }
-    return count;
+
+    return resultado;
 }
 
-float multInt2(int n, float m) {
-    float result = 0;
-    int i;
-    int operations = 0;
-    int r = contaasdivisoes (n);
-    if (n%2 ==1) result = m; 
-    for (i = 0; i < r; i++) {
-       m *= 2;
-       n /=2;
-        if (n%2 == 1) { 
-            result += m;
-            operations++; 
-        } 
-    }
-    return result;
-}
-    
-
-
-float main (){
-  printf("Introduza dois numeros : \n");
-  int n;
-  float m;
-  scanf( "%d %f", &n,&m);
-  float r;
-  r = multInt2(n ,m );
-  printf( "O resultado é %f.\n" ,r);
+int main() {
+    int n;
+    printf("Mete um numero : ");
+    scanf("%d", &n);
+    printf("Onúmero da sequência de Fibonacci é: %d\n", fib2(n));
+    return 0;
 }
