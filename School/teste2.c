@@ -1,25 +1,14 @@
 #include <stdio.h>
+#include <string.h>
+#include <math.h>
 
-
-int mdc2 (int a, int b){
-    for(int i = 0 ; i < 8 ;i++ ){printf("%d %d\n", a, b);
-    if (a >b) {
-        a = a-b;
-        
+int main(){
+    
+    
+    
+    
+    for (int i = len - 1; i >= 0; i--) {
+        decimal =+  (bin[i] * pow(2, i));   // Multiplico o caracter da string por 2^i e somo em decimal.
     }
-    else if (a < b){
-        b = b - a;
-    }
-    else if (a == b){
-        return a;
-    }
-    }
-
 }
 
-int main (){
-    int a ,b;
-    scanf ("%d %d" ,&a ,&b ) ;
-    int i = mdc2(a,b);
-    printf("%d" , i);   
-}
