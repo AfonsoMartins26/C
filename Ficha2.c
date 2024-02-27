@@ -188,6 +188,6 @@ int main() {
     int n;
     printf("Mete um numero : ");
     scanf("%d", &n);
-    printf("Onúmero da sequência de Fibonacci é: %d\n", fib2(n));
+    printf("O número da sequência de Fibonacci é: %d\n", fib2(n));
     return 0;
 }
