@@ -82,7 +82,7 @@ int maximum (int v[], int N, int *m){
     *m = v[0];
   for (int i = 0 ; i < N ;i++ ){
     if (v[i] > *m ) {
-      *m = v[i]
+      *m = v[i];
     }
   }
 return 0 ;
@@ -103,7 +103,7 @@ void pascal (int v[], int N){
     int prev [N - 1];
     pascal ( prev , N-1);
     v[0] = 1;
-    v[n-1] = 1 ;
+    v[N-1] = 1 ;
     for (int i =1 ; i < N-1 ; i ++  ){
       v[i] = prev[ i-1] + prev [i];
     }
