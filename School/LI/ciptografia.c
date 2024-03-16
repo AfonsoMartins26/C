@@ -3,8 +3,10 @@
 #include <ctype.h>
 #include <math.h>
 
+
+
 void alfabetoparan(int n, char Exp[]) {
-    int j = strlen(Exp);
+int j = strlen(Exp);
     
     for (int t = 0; t < j; t++) {
         char e = Exp[t];
@@ -16,6 +18,7 @@ void alfabetoparan(int n, char Exp[]) {
             e = 'A' + (e - 'A' + n) % 26;
         }
         Exp[t] = e;
+
     }
 }
 
@@ -34,10 +37,11 @@ int nelementos(char* O) {
 
 float ocorrencias(char e, char Exp[]) {
     int z = 0;
+    int j = strlen(Exp);
     if (e >= 'A' && e <= 'Z') {
         e += 'a' - 'A';
     }
-    for (int i = 0; i < strlen(Exp); i++) {
+    for (int i = 0; i < j; i++) {
         char exp_char = Exp[i];
         if (exp_char >= 'A' && exp_char <= 'Z') {
             exp_char += 'a' - 'A';
@@ -58,25 +62,23 @@ int menoreposicao(double listadesomas[26]) {
             t = i;
         }
     }
-    printf("%d ", t);
+    printf("%d ",t);
     return t;
 }
 
-
-
-int main() {
-    char Exp[10000]; 
-    if(scanf("%s", Exp) == 1){
-    char Exp1[10000];
+char Exp[10000];
+char Exp1[10000];
+double listadesomas[26] = {0}; 
+int main() { 
+    if (scanf("%[^\n]", Exp)== 1){
     strcpy(Exp1,Exp);
 
-        double soma = 0;
-        double t = 0;
-        double listadesomas[26] = {0}; 
+    double soma = 0;
+    double t = 0;
 
     for(int k = 0 ; k < 26; k++) {
+        t = 0; 
         strcpy(Exp, Exp1);
-        t = 0;
         alfabetoparan(k, Exp);
         for (int i = 0; i < 26; i++) {
             float frequencia_relativa[26] = {43.31, 10.56, 23.13, 17.25, 56.88, 9.24, 12.59, 15.31, 38.45, 1.00, 5.61,
@@ -84,9 +86,6 @@ int main() {
 
             char alfabetomi[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
              'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
-            char u = alfabetomi[i];
-
-            int j = nelementos(&u);
 
             double E = frequencia_relativa[i];
 
@@ -94,11 +93,14 @@ int main() {
             soma = (((E - O)*(E - O)) / E);
             t += soma;
         }
+      
         listadesomas[k] = t;
     }
+    }
+
+      
     alfabetoparan(menoreposicao(listadesomas), Exp1);
-    printf("%s\n",Exp1);
+    printf("%s\n", Exp1);
     
     return 0;
-}
 }

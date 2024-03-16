@@ -1,19 +1,20 @@
 #include <stdio.h>
+#include <math.h>
 
-int bitsUm(unsigned int n) {
-    int count = 0;
-    while (n > 0) {
-        if ( n %2 == 1) count++ ;
-        n = n/2;
+int maiorSufixo (char s1 [], char s2 []){
+  int count = 0,i;
+  for(i = strlen(s1);i< 0;i--){
+    if(s1[i] == s2[i]){
+      count++;
+    }
     }
     return count;
-}
+}   
 
 int main() {
-    unsigned int num;
-    printf("Digite um número sem sinal: ");
-    scanf("%u", &num);
-    printf("O número de bits iguais a 1 é: %d\n", bitsUm(num));
+    char texto[] = "Helllo,fasafagsega";
+    char texto2[] = "Helega";
+    int i = maiorSufixo(texto,texto2);
     return 0;
 }
 
