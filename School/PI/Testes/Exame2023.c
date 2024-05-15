@@ -7,30 +7,28 @@
 
 //1 
 
-int fib(int n) {
-    if (n < 0) {
-        return -1; 
-    }
-    else if (n < 2) {
-        return n; 
-    }
-    else {
-        return fib(n - 1) + fib(n - 2);
-    }
-}
+int fib(int n){
+  if (n < 0){
+    return -1;
+  }
 
+  if (n < 2){
+    return n;
+  }
+
+  else{
+    return fib(n-1) + fib(n-2);
+  }
+}
 int isFib(int x){
-    int i = 0;
-    int fib_i;
-
-    while ((fib_i = fib(i)) <= x) {
-        if (fib_i == x){
-            return 1; 
-        }
-        i++;
+  for (int i = 0 ; i< x ; i++){
+    if ( fib(i) == x) {
+      return 1;
     }
-    return 0; 
+  }
+  return 0 ;
 }
+
 
 //2
 
@@ -38,45 +36,57 @@ typedef struct {
 float teste, minis;
 } Aluno;
 
-int moda(Aluno turma[], int N) {
-    float notas_finais[N];
-    int frequencia[21] = {0};
+int nota(aluno a){
+  int final ;
+  final = a.teste *0.8 + a.minis * 0.20;
+}
 
-    for (int i = 0; i < N; i++) {
-        float nota_final = 0.8 * turma[i].teste + 0.2 * turma[i].minis;
-        nota_final = ((int)(nota_final * 10 + 0.5)) / 10.0;
-        notas_finais[i] = nota_final;
+int frequencia(int notas[], int N) {
+    if (N <= 0) {
+        return -1; 
     }
 
-    for (int i = 0; i < N; i++) {
-        if (notas_finais[i] < 9.5) {
-            continue;
+    int max_valor = notas[0];
+    for (int i = 1; i < N; i++) {
+        if (notas[i] > max_valor) {
+            max_valor = notas[i];
         }
-        frequencia[(int)notas_finais[i]]++;
+    }
+
+    int *frequencias = (int*)calloc(max_valor + 1, sizeof(int));
+
+    for (int i = 0; i < N; i++) {
+        frequencias[notas[i]]++;
     }
 
     int max_frequencia = 0;
-    int moda_nota = -1;
-    for (int i = 0; i <= 20; i++) {
-        if (frequencia[i] > max_frequencia) {
-            max_frequencia = frequencia[i];
-            moda_nota = i;
+    int elemento_max_frequencia = -1;
+    for (int i = 0; i <= max_valor; i++) {
+        if (frequencias[i] > max_frequencia) {
+            max_frequencia = frequencias[i];
+            elemento_max_frequencia = i;
         }
     }
 
-    if (moda_nota == -1) {
-        return 0;
-    }
+    free(frequencias);
 
-    return moda_nota;
+    return elemento_max_frequencia;
 }
 
+int moda(Aluno turma[], int N){
+  int notas[N];
+  for (int i = 0; i< N ;i++){
+    notas[i] =nota(turma[i]);
+  }
+
+  return frequencia(notas,N);
+}
 
 //3
 
 typedef struct lint_nodo {
-    int valor;
-    struct lint_nodo *prox;
+int valor;
+struct lint_nodo *prox;
 } *LInt;
 
 
@@ -118,43 +128,42 @@ int take(int n, LInt *l) {
 
 //4
 
-int isspace(int c) {
-    return (c == ' ' || c == '\t' || c == '\n');
+int isspace(char x){
+  if (x == ' ' || x == '\t' || x == '\n') return 1;
+  else {
+    return 0;
+  }
 }
 
-
-int verifica(char frase[], int k) {
-    int i = 0;
-    int palavra_len = 0;
-    int todas_maior_k = 1; 
-
+int verifica(char frase[], int k){
+  int i = 0,count = 0,todasmaiores = 1;
     while (frase[i] != '\0') {
         while (frase[i] != '\0' && isspace(frase[i]))
             i++;
 
         
-        palavra_len = 0;
+        count = 0;
         while (frase[i] != '\0' && !isspace(frase[i])) {
-            palavra_len++;
+            count++;
             i++;
         }
 
-        if (palavra_len < k) {
-            todas_maior_k = 0;
-            break; 
+        if(count < k){
+          todasmaiores = 0;
+          break;
         }
     }
-
-    return todas_maior_k;
+  return todasmaiores;
 }
 
-//5 não tenho acerteza se está bem
 
+//5
 
 typedef struct abin_nodo {
 int valor;
 struct abin_nodo *esq, *dir;
 } *ABin;
+
 
 ABin reconstroiRec(char s[], int *pos) {
     if (s[*pos] == '\0' || s[*pos] == '*') {
