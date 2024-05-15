@@ -130,3 +130,40 @@ int sacos(int p[], int N, int C){
     return count+1;
   }
 }
+
+
+//implementacao boa 
+
+
+int maxindex(int array[], int N, int limit) {
+    int current_max = 0;
+    int current_max_index = -1;
+    for (int i = 0; i < N; ++i) {
+        int current = array[i];
+        if (current != 0 && current > current_max && current <= limit) {
+            current_max = current;
+            current_max_index = i;
+        }
+    }
+    return current_max_index;
+}
+
+int sacos(int p[], int N, int C) {
+    int result = 0;
+    int produtos_calculados = 0;
+    int acumulado = 0;
+    while (produtos_calculados < N) {
+        int max_index = maxindex(p, N, C - acumulado);
+        if (max_index == -1) {
+            acumulado = 0;
+            result++;
+        } else {
+            int max = p[max_index];
+            p[max_index] = 0;
+            produtos_calculados++;
+            acumulado += max;
+        }
+    }
+    if (acumulado > 0) result++;
+    return result;
+}

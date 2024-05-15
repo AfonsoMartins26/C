@@ -8,21 +8,20 @@
 
 //1
 
-int perfeito(int x) {
-    int soma = 0;
+int perfeito(int x){
+  int soma = 0;
+  for(int i = 0; i < x ; i++){
+    if ( i % x == 0) {
+      soma += i;
 
-    for (int i = 1; i <= x / 2; i++) {
-        if (x % i == 0) {
-            soma += i; 
-        }
-        
-        if (soma == x){
-          return 1;
-        }
     }
-
-    return 0;
+      if (soma == x){
+      return 1;
+      }
+  }
+  return 0 ;
 }
+
 
 //2
 
@@ -30,102 +29,116 @@ typedef struct {
 int x,y;
 } Ponto;
 
-double distancia_origem(Ponto p) {
-    return sqrt(p.x * p.x + p.y * p.y);
+int distanciaorigem( Ponto p){
+  return sqrt(p.x * p.x + p.y*p.y);
 }
 
-int compara(const void *p1, const void *p2) {
-    Ponto *pt1 = (Ponto *) p1;
-    Ponto *pt2 = (Ponto *) p2;
+void ordena(Ponto pos[], int N){
+  int distancias[N+1];
+  for (int i = 0;i <N ;i++){
+    distancias[i] = distanciaorigem(pos[i]);
+  }
 
-    double dist1 = distancia_origem(*pt1);
-    double dist2 = distancia_origem(*pt2);
+    ordenaaux(distancias, pos, N);
+}
 
-    if (dist1 < dist2) {
-        return -1;
-    } else if (dist1 > dist2) {
-        return 1;
-    } else {
-        return 0;
+void ordenaaux(double distancias[], Ponto pos[], int tamanho) {
+    for (int i = 0; i < tamanho; i++) {
+        for (int j = i + 1; j < tamanho; j++) {
+            if (distancias[i] > distancias[j]) {
+
+                double temp_dist = distancias[i];
+                distancias[i] = distancias[j];
+                distancias[j] = temp_dist;
+
+                Ponto temp_ponto = pos[i];
+                pos[i] = pos[j];
+                pos[j] = temp_ponto;
+            }
+        }
     }
 }
 
-void ordena(Ponto pos[], int N) {
-    qsort(pos, N, sizeof(Ponto), compara);
-}
 
 //3
+
 
 typedef struct abin_nodo {
 int valor;
 struct abin_nodo *esq, *dir;
 } *ABin;
 
-int depthaux(ABin a, int x, int nivel) {
-  if (a == NULL ) return -1;
 
-  if (a->valor == x) return nivel;
-
-    int nivelesq = depthaux(a->esq,x, nivel+1);
-    int niveldir = depthaux(a->dir,x, nivel+1);
-
-    if (nivelesq != NULL && niveldir != NULL){
-        if (nivelesq < niveldir){
-            return nivelesq;
-        }
-        else {
-            return niveldir;
-        }
-    }
-    if (nivelesq != -1){
-      return nivelesq;
-    }
-    else {
-      return niveldir;
-    }
+int depth(ABin a, int x){
+  depthaux(a,x,0);
 }
 
-int depth(Abin a, int x){
-    return depthaux(a,x,0);
+int depthaux(ABin a, int x,int nivel){
+
+  if (a == NULL){
+    return -1;
+  }
+  
+  if(a->valor == x){
+    return nivel;
+  }
+
+  else{
+    int esq = depthaux(a->esq,x,nivel+1);
+    int dir = depthaux(a->dir,x,nivel+1);
+
+    if (esq != -1 && dir != -1){
+      if (esq < dir){
+        return esq;
+      }
+      else{
+        return dir;
+      }
+    }
+
+    if (esq != -1){
+      return esq;
+    }
+    else{
+      return dir;
+    }
+  }
 }
 
 
-//4 errada 
-
+//4
 
 int wordle(char secreta[], char tentativa[]) {
     int count = 0;
-    int tam = strlen(secreta);
-
-    for(int j = 0; j < tam ; j++) {
-        int acertou = 0;
-        for (int i = 0; i < tam; i++) {
-            if (secreta[i] == tentativa[j]) {
-                if (i == j) {
-                    count++;
-                    tentativa[j] = toupper(secreta[j]); // Converte para maiúscula
-                    acertou = 1;
+    int l = strlen(secreta);
+    
+    for (int i = 0; i < l; i++) {
+        if (secreta[i] == tentativa[i]) {
+            count++;
+            tentativa[i] = toupper(tentativa[i]);
+        } else {
+            int found = 0;
+            for (int j = 0; j < l; j++) {
+                if (secreta[j] == tentativa[i] && secreta[j] != tentativa[j]) {
+                    tentativa[i] = tolower(tentativa[i]);
+                    found = 1;
                     break;
-                } else {
-                    acertou = 1;
-                    tentativa[j] = secreta[i];
                 }
-            } 
-        }
-        if (!acertou) {
-            tentativa[j] = '*'; // Substitui por '*'
+            }
+            if (!found) {
+                tentativa[i] = '*';
+            }
         }
     }
-
+    
     return count;
 }
 
 //5
 
-
 typedef struct lint_nodo {
-    int valor;
-    struct lint_nodo *prox;
+int valor;
+struct lint_nodo *prox;
 } *LInt;
 
 
@@ -155,7 +168,6 @@ LInt periodica(char s[]) {
         }
         i++;
     }
-
 
     if (s[i] == '(') {
         LInt partePer = NULL;
